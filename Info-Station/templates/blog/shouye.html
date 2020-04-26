@@ -1,0 +1,395 @@
+<!DOCTYPE html PUBLIC>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>一颗赛艇- 网设作品</title>
+{#    <script src="/static/js/jquery-3.4.0.min.js"></script>#}
+    <script src="/static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js">
+
+    </script><link rel="stylesheet"  href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <script></script>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <meta name="description" content="Slide Down Box Menu with jQuery and CSS3" />
+
+    <meta name="keywords" content="jquery, css3, sliding, box, menu, cube, navigation, portfolio, thumbnails"/>
+
+
+
+    <style>
+      body{background: url(/static/image/shouye.jpg);}
+      body{
+  margin: 0;
+  padding: 0;
+
+
+}
+
+.search-box{
+  position: absolute;
+  top: 65%;
+  left: 68%;
+  transform: translate(-50%,-50%);
+  background: white;
+  opacity: 0.7;
+  height: 80px;
+  border-radius: 100px;
+  padding: 0px;
+}
+
+.search-box:hover > .search-txt{
+  width: 240px;
+  padding: 0 6px;
+}
+
+.search-box:hover > .search-btn{
+  background: rgb(240, 237, 237);
+}
+
+.search-btn{
+  color: black;
+  float: right;
+  width: 80px;
+  height: 80px;
+  border-radius: 60%;
+  background:white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+}
+
+.search-txt{
+  border: none;
+  background: none;
+  outline: none;
+  float: left;
+  padding: 0;
+  color:black;
+  font-size: 25px;
+  transition: 0.4s;
+  line-height: 30px;
+  width: 0px;
+
+  margin-top: 23px;
+
+}
+body{
+  margin: 0;
+  padding: 0;
+  font-family: "montserrat",sans-serif;
+
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.s-m{
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.s-m a{
+
+  display: inline-flex;
+  width: 80px;
+  height: 80px;
+  background: white;
+  color: black;
+  margin: 0 20px;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+  font-size: 24px;
+}
+
+.s-m a:hover{
+  background: #ffc18b;
+}
+
+.s-m a i{
+  transition: 0.4s all;
+}
+
+.s-m a:hover > i{
+  transform: scale(1.6) rotate(25deg);
+}
+span.reference{
+
+    position:fixed;
+
+    left:10px;
+
+    bottom:10px;
+
+    font-size:12px;
+
+}
+
+span.reference a{
+
+    color:#aaa;
+
+    text-transform:uppercase;
+
+    text-decoration:none;
+
+    text-shadow:1px 1px 1px #000;
+
+    margin-right:30px;
+
+}
+
+span.reference a:hover{
+
+    color:#ddd;
+
+}
+
+ul.sdt_menu{
+
+    margin-top:150px;
+
+}
+
+h1.title{
+
+    text-indent:-9000px;
+
+{#background:transparent url(title.png) no-repeat top left;#}
+
+    width:633px;
+
+    height:69px;
+
+}
+.content{
+  margin-bottom: 500px;
+  margin-left: 800px;
+}
+    </style>
+    </head>
+
+<body>
+
+    <div class="search-box">
+        <input class="search-txt" type="text" name="" placeholder="Type to search">
+        <a class="search-btn" href="">
+          <i class="fas fa-search"></i>
+        </a>
+      </div>
+      <div class="content">
+
+
+        <ul id="sdt_menu" class="sdt_menu">
+
+          <li>
+
+            <a href="{% url "about" %}">
+
+              <img src="/static/image/关于我们.png" alt=""/>
+
+              <span class="sdt_active"></span>
+
+              <span class="sdt_wrap">
+
+                <span class="sdt_link">About me</span>
+
+                <span class="sdt_descr">关于我们</span>
+
+              </span>
+
+            </a>
+
+          </li>
+
+          <li>
+
+            <a href="{% url "yiqing" %}">
+
+              <img src="/static/image/数据.png" alt=""/>
+
+              <span class="sdt_active"></span>
+
+              <span class="sdt_wrap">
+
+                <span class="sdt_link">Situation</span>
+
+                <span class="sdt_descr">疫情的状况</span>
+
+              </span>
+
+            </a>
+
+{#            <div class="sdt_box">#}
+{##}
+{#                <a href="#">Websites</a>#}
+{##}
+{#                <a href="#">Illustrations</a>#}
+{##}
+{#                <a href="#">Photography</a>#}
+{##}
+{#            </div>#}
+
+          </li>
+
+          <li>
+
+            <a href="{% url "article" %}">
+
+              <img src="/static/image/书籍.png" alt=""/>
+
+              <span class="sdt_active"></span>
+
+              <span class="sdt_wrap">
+
+                <span class="sdt_link">Article</span>
+
+                <span class="sdt_descr">最新的文章</span>
+
+              </span>
+
+            </a>
+
+          </li>
+
+          <li>
+
+            <a href="{% url "message" %}">
+
+              <img src="/static/image/留言.png" alt=""/>
+
+              <span class="sdt_active"></span>
+
+              <span class="sdt_wrap">
+
+                <span class="sdt_link">comments</span>
+
+                <span class="sdt_descr">群众的留言</span>
+
+              </span>
+
+            </a>
+
+          </li>
+
+        </ul>
+
+      </div>
+
+
+
+
+    <!-- The JavaScript -->
+
+    <script src='https://libs.baidu.com/jquery/1.4.4/jquery.min.js'></script>
+
+      <script type="text/javascript" src="/static/js/jquery.easing.1.3.js"></script>
+
+          <script type="text/javascript">
+
+              $(function() {
+
+                  $('#sdt_menu > li').bind('mouseenter',function(){
+
+            var $elem = $(this);
+
+            $elem.find('img')
+
+               .stop(true)
+
+               .animate({
+
+                'width':'170px',
+
+                'height':'170px',
+
+                'left':'0px'
+
+               },400,'easeOutBack')
+
+               .andSelf()
+
+               .find('.sdt_wrap')
+
+                 .stop(true)
+
+               .animate({'top':'140px'},500,'easeOutBack')
+
+               .andSelf()
+
+               .find('.sdt_active')
+
+                 .stop(true)
+
+               .animate({'height':'170px'},300,function(){
+
+              var $sub_menu = $elem.find('.sdt_box');
+
+              if($sub_menu.length){
+
+                var left = '170px';
+
+                if($elem.parent().children().length == $elem.index()+1)
+
+                  left = '-170px';
+
+                $sub_menu.show().animate({'left':left},200);
+
+              }
+
+            });
+
+          }).bind('mouseleave',function(){
+
+            var $elem = $(this);
+
+            var $sub_menu = $elem.find('.sdt_box');
+
+            if($sub_menu.length)
+
+              $sub_menu.hide().css('left','0px');
+
+
+            $elem.find('.sdt_active')
+
+               .stop(true)
+
+               .animate({'height':'0px'},300)
+
+               .andSelf().find('img')
+
+               .stop(true)
+
+               .animate({
+
+                'width':'0px',
+
+                'height':'0px',
+
+                'left':'85px'},400)
+
+               .andSelf()
+
+               .find('.sdt_wrap')
+
+               .stop(true)
+
+               .animate({'top':'25px'},500);
+          });
+              });
+          </script>
+
+</body>
+
+</html>

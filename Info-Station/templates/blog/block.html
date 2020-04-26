@@ -1,0 +1,262 @@
+<!DOCTYPE HTML>
+{% load static%}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}一颗赛艇{% endblock %}- 网设作品</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <style>
+        .card-footer button {
+        width: 80px;
+        height: 35px;
+        border-radius: 25px;
+        border: rgba(47,78,78, 0.7) 1px solid;
+        color: rgba(47,78,78, 0.7);
+        /*color:tomata;*/
+        background-color: #ffffff;
+        }
+
+        .card-footer button:hover {
+        width: 80px;
+        height: 35px;
+        border-radius: 25px;
+        border: rgba(47,78,78, 0.7) 1px solid;
+        color: #ffffff;
+        background-color: rgba(47,78,78, 0.7);
+        }
+
+        .card-footer button:focus {
+        outline: none;
+        }
+
+        #cardHeader {
+        background-color: rgba(47,78,78, 0.7);
+        color: #ffffff;
+        border: rgba(47,78,78, 0.7);
+        }
+
+        .error {
+        box-shadow: 0 0 10px rgba(47,78,78, 0.9);
+        }
+
+        .list-group-item.active {
+        z-index: 2;
+        color: #fff;
+        font-weight: bold;
+        background-color: rgba(47,78,78, 0.8);
+        border-color: rgba(47,78,78, 0.4);
+        }
+
+        .list-group-item {
+        font-weight: initial;
+        }
+
+    .navbar-nav .nav-link{
+        padding-right:22px;
+        padding-left:0;
+    }
+
+    </style>
+  </head>
+  <body style="margin: 0;padding: 0;">
+    {% block navbar %}
+              <div class="navbar  navbar-dark bg-dark">
+          <div class="container">
+              <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="flex-direction:inherit">
+{#            {% for cate in navs %}#}
+{#              <li class="nav-item">#}
+{#                  <a class="nav-link" href="{% url 'category-list' cate.id %}">{{ cate.name }}</a>#}
+{#              </li>#}
+{#            {% endfor %}#}
+            <li  class="nav-item active"><a class="nav-link" href="/" >一颗赛艇 <span class="sr-only">(current)</span></a></a></li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url "yiqing" %}">战况</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url "article" %}">文章</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'message' %}">留言</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'about' %}">关于</a>
+            </li>
+
+            </ul>
+        <form class="form-inline" action='/search/' method='GET'>
+            <input class="form-control mr-sm-2" type="search" name="keyword" placeholder="Search" aria-label="Search" value="{{ keyword }}">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+        </form>
+          </div>
+
+      </div>
+    {% endblock %}
+{% load static%}
+
+{%block main%}
+<div class="container" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-12 mt-4 mb-4">
+            <div class="row mt-4 mb-4">
+                <div class="col-2 text-center ml-3">
+                    <div class="list-group" id="list-tab" role="tablist">
+                        <a class="list-group-item active" id="add-message-list"
+                           data-toggle="list" href="#add-message" role="tab" aria-controls="unread">添加留言</a>
+                    </div>
+                </div>
+                <div class="col-9 ml-3">
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active"
+                             id="add-message" role="tabpanel" aria-labelledby="add-message-list">
+                            <div class="col-12">
+                                <form id="messageBoardForm">
+                                    <div class="card">
+                                        <div class="card-header" id="cardHeader">
+                                            <h5 class="mt-1 mb-1">留言板</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label for="nickNameInput">昵称</label>
+                                                <input type="text" name="name" class="form-control" id="nickNameInput" placeholder="请输入你的昵称" required>
+                                                <small id="nickNameHelp" class="form-text text-muted">昵称仅用于展示，长度不超过20字
+                                                </small>
+                                            </div>
+											    <div class="form-group">
+                                                <label for="websiteInput">网站</label>
+                                                <input type="text" name="website" class="form-control" id="websiteInput" placeholder="请输入你的网站" required>
+                                                <small id="websiteHelp" class="form-text text-muted">请输入你的网站
+                                                </small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="emailInput">邮箱</label>
+                                                <input type="email" name="email" class="form-control" id="emailInput" placeholder="请输入你的邮箱" required>
+                                                <small id="emailHelp" class="form-text text-muted">
+                                                    邮箱仅用于展示，网站作者可能会通过邮件同你沟通
+                                                </small>
+                                            </div>
+                                            <div class="form-group mb-1">
+                                                <label for="messageTextarea">留言内容</label>
+                                                <textarea class="form-control" name="message" id="messageTextarea" rows="5" required></textarea>
+                                                <small id="messageHelp" class="form-text text-muted">
+                                                    请输入你的留言内容，长度不超过300字
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer bg-white">
+                                            <button class="float-left" type="reset" id="resetMessage">
+                                                清空
+                                            </button>
+                                            <button class="float-right" type="button" id="submitMessage">
+                                                提交
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+{%endblock%}
+
+   <footer class="footer">
+        {% block footer %}
+            <nav class="nav category">
+            {% for cate in categories %}
+            <a href="{% url 'category-list' cate.id %}" class="nav-link">{{ cate.name }}</a>
+            {% endfor %}
+            </nav>
+            <div style="height: 60px; background: rgb(0,0,0); color: rgb(250, 250, 250); width: 100%; min-width: 1500px;padding: 24px 50px;font-size: 14px;">
+            <div class="container">
+                <div style="float: left;">
+                    CopyRight © 一颗赛艇    | <a href="http://www.beian.miit.gov.cn/" style="color:white">粤ICP备19149331号-3</a>
+                </div>
+                <div style="float: right;">
+                    广东医科大学-网站设计大赛-网设作品
+                </div>
+            </div>
+            </div>
+
+
+        {% endblock %}
+    </footer>
+
+  <script type="text/javascript" src="{% static 'js/jquery-3.4.0.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/crsf_ajax.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        $('#submitMessage').on("click", function () {
+            var nick_name = $("#nickNameInput").val();
+            var website = $("#websiteInput").val();
+            var email = $("#emailInput").val();
+            var message = $("#messageTextarea").val()
+            var pattern = /^([a-z0-9,!#\$%&'\*\+/=\?\^_`\{\|}~-]+(\.[a-z0-9,!#\$%&'\*\+/=\?\^_`\{\|}~-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*\.([a-z]{2,})){1}(;[a-z0-9,!#\$%&'\*\+/=\?\^_`\{\|}~-]+(\.[a-z0-9,!#\$%&'\*\+/=\?\^_`\{\|}~-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*\.([a-z]{2,}))*$/;
+            var reg=/(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
+            if (nick_name.length > 20) {
+                $('#nickNameHelp').text('昵称长度超过20个字符啦');
+                $('#nickNameInput').addClass('error');
+                return false
+            } else if (nick_name.length === 0) {
+                $('#nickNameHelp').text('昵称不能为空');
+                $('#nickNameInput').addClass('error');
+                return false
+            } else {
+                $('#nickNameInput').removeClass('error');
+                $('#nickNameHelp').text('合格的昵称');
+            }
+            if (reg.test(website)) {
+                $('#websiteHelp').text('网站符合要求');
+                $('#websiteInput').removeClass('error');
+            } else {
+                $('#websiteHelp').text('网站符合不符合要求，形如：https://www.baidu.com');
+                $('#websiteInput').addClass('error');
+                return false
+            }
+            if (pattern.test(email)) {
+                $('#emailHelp').text('邮箱符合要求');
+                $('#emailInput').removeClass('error');
+            } else {
+                $('#emailHelp').text('邮箱符合不符合要求');
+                $('#emailInput').addClass('error');
+                return false
+            }
+            if (message.length > 300) {
+                $('#messageHelp').text('留言内容超过300个字符啦');
+                $('#messageTextarea').addClass('error');
+                return false
+            } else if (message.length === 0) {
+                $('#messageHelp').text('留言内容不能为空');
+                $('#messageTextarea').addClass('error');
+                return false
+            } else {
+                $('#messageTextarea').removeClass('error');
+            }
+            $.ajax({
+                cache: false,
+                type: 'POST',
+                data: $('#messageBoardForm').serialize(),
+                url: "{% url 'add-message' %}",
+                async: true,
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (data) {
+                    if (data.status === 'success') {
+                        alert('留言添加成功');
+                        $('#resetMessage').click();
+                    } else {
+                        alert('留言添加失败，请稍后再试');
+                    }
+                }
+            })
+        })
+    })
+</script>
+  </body>
+</html>

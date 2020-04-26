@@ -1,0 +1,56 @@
+{% extends "./base.html"%}
+
+{%block title%}
+    {% if tag %}
+    标签页：{{ tag.name }}
+    {% elif category %}
+    分类页：{{ category.name }}
+    {% else %}
+    首页
+    {% endif%}
+{% endblock %}
+
+{%block main%}
+    {% for post in post_list %}
+    <div class="card post" style="-moz-box-shadow:4px 4px 12px 4px rgba(20%,20%,40%,0.5);-webkit-box-shadow:4px 4px 12px 4px rgba(20%,20%,40%,0.5);
+            box-shadow:4px 4px 12px 4px rgba(20%,20%,40%,0.5)">
+        <div class="card-body">
+            <h4 class="card-title"><a href="{% url 'post-detail' post.id %} "style="color:black">{{post.title}}</a></h4>
+{#            <span class="card-link">作者:<a href="#">{{ post.owner.username }}</a></span>#}
+            <span class="card-link">分类:<a href="{% url 'category-list' post.category_id %} " style="color:black">{{post.category.name}}</a></span>
+            <span class="card-link">标签:
+                {%for tag in post.tag.all%}
+                <a href="{% url 'tag-list' tag.id%}" style="color:black">{{tag.name}}</a>
+                {%endfor%}
+            </span>
+            <hr/>
+            <p class="card-text">{{post.desc}}<a href="{% url 'post-detail' post.id %}" class="btn btn-outline-success " >完整内容</a></p>
+        </div>
+    </div>
+    {% endfor %}
+
+
+        <nav aria-label="Page navigation example" style="padding-top:20px">
+          <ul class="pagination">
+              {%if page_obj.has_previous%}
+                <li class="page-item">
+                  <a class="btn btn-outline-success "style="-moz-box-shadow:4px 4px 12px 4px rgba(20%,20%,40%,0.5);-webkit-box-shadow:4px 4px 12px 4px rgba(20%,20%,40%,0.5);
+            box-shadow:4px 4px 12px 4px rgba(20%,20%,40%,0.5)" href="?page={{page_obj.previous_page_number}}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+              {% endif %}
+            <li class="page-item"><a class="btn  btn-outline-success "style="-moz-box-shadow:4px 4px 12px 4px rgba(20%,20%,40%,0.5);-webkit-box-shadow:4px 4px 12px 4px rgba(20%,20%,40%,0.5);
+            box-shadow:4px 4px 12px 4px rgba(20%,20%,40%,0.5)" href="#">Pages {{page_obj.number}} of{{paginator.num_pages}}</a></li>
+            {%if page_obj.has_next%}
+            <li class="page-item ">
+              <a class="btn  btn-outline-success " style="-moz-box-shadow:4px 4px 12px 4px rgba(20%,20%,40%,0.5);-webkit-box-shadow:4px 4px 12px 4px rgba(20%,20%,40%,0.5);
+            box-shadow:4px 4px 12px 4px rgba(20%,20%,40%,0.5)" href="?page={{page_obj.next_page_number}}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+
+{%endblock%}

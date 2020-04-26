@@ -1,0 +1,31 @@
+{% extends "./base.html"%}
+{#{% load comment_block %}#}
+{% load static%}
+{%block title%}{{post.title}}{%endblock%}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/monokai-sublime.css' %}">
+    <script src="{% static 'js/highlight.pack.js' %}"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+{% endblock %}
+
+{%block main%}
+    {% if post %}
+    <h1>{{post.title}}</h1>
+    <div>
+        <span>分类：<a href="{% url 'category-list' post.category_id %}" style="color:black">{{ post.category.name }}</a></span>
+{#        <span>作者：<a href="{% url 'author' post.owner_id %}"></a>{{post.owner.username}}</span>#}
+    </div>
+    <hr/>
+    <p>
+    {% autoescape off %}
+        {{post.content_html}}
+    {% endautoescape %}
+    </p>
+    {% endif %}
+          <div class="row">
+            <div class="col-9 post-list">
+
+            </div>
+        </div>
+{%endblock%}

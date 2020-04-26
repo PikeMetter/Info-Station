@@ -1,0 +1,154 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>实时动态</title>
+    <script type="text/javascript" src="/static/js/echarts.min.js"></script>
+
+    <script type="text/javascript" src="/static/js/echarts-wordcloud.min.js"></script>
+    <script type="text/javascript" src="/static/js/china.js"></script>
+    <script src="/static/js/jquery-3.4.0.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="/static/js/bootstrap.min.js" ></script>
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <style>
+    .navbar-nav .nav-link{
+        padding-right:22px;
+        padding-left:0;
+    }
+    </style>
+{#    <link href="/static/css/grid.css" rel="stylesheet">#}
+  </head>
+  <style>
+        .col-md-2 strong{
+      display:block;
+      text-align:center;
+      margin-bottom: .01rem;
+      font-weight: 700;
+      font-size: 2.18rem;
+    }
+    .col-md-2 span{
+      display:block;text-align:center;
+      font-weight: 700;
+    }
+    .col-md-2 b{
+      display:block;text-align:center;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+  #map,#confirm_line,#cure_line,#word_cloud{
+    -moz-box-shadow:2px 2px 2px rgba(20%,20%,40%,0.6),4px 4px 6px rgba(20%,20%,40%,0.4),6px 6px 12px rgba(20%,20%,40%,0.4);
+                -webkit-box-shadow:2px 2px 2px rgba(20%,20%,40%,0.6),4px 4px 6px rgba(20%,20%,40%,0.4),6px 6px 12px rgba(20%,20%,40%,0.4);
+        box-shadow:
+        2px 2px 2px rgba(20%,20%,40%,0.6),
+        4px 4px 6px rgba(20%,20%,40%,0.4),
+        6px 6px 12px rgba(20%,20%,40%,0.4);
+  }
+  </style>
+  <body >
+   {% block navbar %}
+      <div class="navbar  navbar-dark bg-dark">
+          <div class="container">
+              <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="flex-direction:inherit">
+{#            {% for cate in navs %}#}
+{#              <li class="nav-item">#}
+{#                  <a class="nav-link" href="{% url 'category-list' cate.id %}">{{ cate.name }}</a>#}
+{#              </li>#}
+{#            {% endfor %}#}
+            <li  class="nav-item active"><a class="nav-link" href="/" >一颗赛艇 <span class="sr-only">(current)</span></a></a></li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url "yiqing" %}">战况</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url "article" %}">文章</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'message' %}">留言</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'about' %}">关于</a>
+            </li>
+
+            </ul>
+        <form class="form-inline" action='/search/' method='GET'>
+            <input class="form-control mr-sm-2" type="search" name="keyword" placeholder="Search" aria-label="Search" value="{{ keyword }}">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+        </form>
+          </div>
+
+      </div>
+    {% endblock %}
+   {% block main %}
+    <div class="container main">
+      <span style="color: #666;margin-left: 25rem;">截至 {{ modifyTime }} 全国数据统计</span>
+        <div class="container-fluid ">
+          <div class="row" style=" margin-bottom: 30px;  margin-top: 30px;">
+            <div class="col-md-2 col-md-offset-2" style="">
+                <b>较昨日
+                    <em style="color: rgb(247, 76, 49);">{{currentConfirmedIncr}}</em>
+                </b>
+                <strong style="color: rgb(247, 76, 49);">{{ currentConfirmedCount }}</strong>
+                <span>现存确诊</span>
+            </div>
+            <div class="col-md-2">
+                <b>较昨日<em style="color: rgb(247, 130, 7);">{{ seriousIncr }}</em></b>
+                <strong style="color: rgb(247, 130, 7);">{{ seriousCount }}</strong>
+                <span>现存重症</span>
+            </div>
+            <div class="col-md-2" style="border-right: none;">
+                <b>较昨日<em style="color: rgb(40, 183, 163);">{{ curedIncr }}</em></b>
+                <strong style="color: rgb(40, 183, 163);">{{ curedCount }}</strong>
+                <span>累计治愈</span>
+            </div>
+            <div class="col-md-2">
+                <b>较昨日<em style="color: rgb(93, 112, 146);">{{ deadIncr }}</em></b>
+                <strong style="color: rgb(93, 112, 146);">{{ deadCount }}</strong>
+                <span>累计死亡</span>
+            </div>
+
+          </div>
+        </div>
+        <hr />
+        <div id="map" style="width:1000px; height:500px;margin:0 auto;margin-bottom: 2rem;"></div>
+        <hr />
+        <div id="confirm_line" style="width:1000px; height:500px;margin:0 auto;"></div>
+        <hr />
+        <div id="cure_line" style="width:1000px; height:500px;margin:0 auto;margin-bottom: 2rem;"></div>
+        <hr />
+        <div id="word_cloud" style="width:1000px; height:500px;margin:0 auto;margin-bottom: 2rem;"></div>
+        <hr  />
+    </div>
+   {% endblock %}
+
+   <footer class="footer">
+        {% block footer %}
+            <nav class="nav category">
+            {% for cate in categories %}
+            <a href="{% url 'category-list' cate.id %}" class="nav-link">{{ cate.name }}</a>
+            {% endfor %}
+            </nav>
+
+            <div style="height: 60px; background: rgb(0,0,0); color: rgb(250, 250, 250); width: 100%; min-width: 1500px;padding: 24px 50px;font-size: 14px;">
+                    <div class="container">
+                        <div style="float: left;">
+                        CopyRight © 一颗赛艇    | <a href="http://www.beian.miit.gov.cn/" style="color:white">粤ICP备19149331号-3</a>
+                    </div>
+                    <div style="float: right;">
+                        广东医科大学-网站设计大赛-网设作品
+
+                    </div>
+            </div>
+            </div>
+
+
+        {% endblock %}
+    </footer>
+
+    <script type="text/javascript" src="/static/js/chart.js"></script>
+  </body>
+</html>

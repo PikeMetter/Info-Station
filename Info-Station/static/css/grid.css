@@ -1,0 +1,65 @@
+h4 {
+  margin-top: 25px;
+}
+.row {
+  margin-bottom: 20px;
+}
+.row .row {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+[class*="col-"] {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: #eee;
+  background-color: rgba(255,255,255,.15);
+  border: 1px solid #ddd;
+  border: 1px solid rgba(86,61,124,.2);
+}
+
+hr {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.col-md-2 strong{
+  display:block;
+  text-align:center;
+  margin-bottom: .01rem;
+  font-weight: 700;
+  font-size: 2.18rem;
+}
+.col-md-2 span{
+  display:block;text-align:center;
+  font-weight: 700;
+}
+.col-md-2 b{
+  display:block;text-align:center;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.col-md-2{
+  border-bottom: none;
+  border-top: none;
+}
+.row{
+  margin-top:1rem;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-left: 26.1rem;
+  margin-bottom: 2rem;
+}
+
+li {
+  padding-left: 1em;
+  text-indent: -.7em;
+  font-weight: 650;
+  padding-bottom: .5rem;
+}
+
+li::before {
+  content: "• "; /* 自定义图标，也可以使用字体图标 如：content: "\f105"; font-family: FontAwesome;*/
+  color: #ABCDEF; /* 自定义颜色 */
+}
