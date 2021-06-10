@@ -1,4 +1,4 @@
-django==2.0.9
+django==2.2.24
 gunicorn==19.8.1
 uWSGI==2.0.17
 django-ckeditor==5.4.0
