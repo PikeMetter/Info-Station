@@ -69,7 +69,8 @@ python manage.py createsuperuser
 
 ------
 
-django的新手作，后期会持续改进
+django的新手作
+已不再维护
 
 
 
